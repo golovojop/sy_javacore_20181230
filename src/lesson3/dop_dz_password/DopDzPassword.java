@@ -34,16 +34,21 @@ public class DopDzPassword {
 
     static boolean checkComplexity(String pasword) throws PasswordSyntaxException {
         /**
+         * При любом условии пароль слабый;
          *
-         * (?=.*[a-z]+?)            - хотя бы одна маленькая буква
-         * (?=.*[A-Z]+?)            - хотя бы одна большая буква
-         * (?=.*\d+?)               - хотя бы одна цифра
-         * (?=.*[#$^+=!*()@%&]+?)   - хотя бы один спецзнак из набора
-         * \\S{8,}                  - вся строка из 8-ми и более непробельных символов
+         * .{0,7}               - вся строка менее 8 символов       (ИЛИ)
+         * (?:.*\s+.*)          - присутствует хотя бы один пробел  (ИЛИ)
+         * |[^0-9]+             - все символы не цифры              (ИЛИ)
+         * [^A-Z]+              - нет строчных букв                 (ИЛИ)
+         * [^a-z]+              - нет прописных букв                (ИЛИ)
+         * [^#$^+=!*()@%&]+     - нет спецсиволов из списка
          */
-        Pattern p = Pattern.compile("^(?=.*[a-z]+?)(?=.*[A-Z]+?)(?=.*\\d+?)(?=.*[#$^+=!*()@%&]+?)\\S{8,}$");
+
+        Pattern p = Pattern.compile("^(.{0,7}|(?:.*\\s+.*)|[^0-9]*|[^A-Z]*|[^a-z]*|[^#$^+=!*()@%&]*)$");
         Matcher m = p.matcher(pasword);
-        if(!m.matches()) throw new PasswordSyntaxException();
+
+        if(m.matches()) throw new PasswordSyntaxException();
         return true;
     }
+
 }
