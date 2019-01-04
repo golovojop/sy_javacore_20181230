@@ -6,6 +6,10 @@ public class Main {
 
     public static void main(String[] args) {
 
+        /**
+         * ДЗ_1.
+         * "Массив с набором слов"
+         */
         String[] data = {
                 "Oracle",
                 "RedHat",
@@ -36,6 +40,34 @@ public class Main {
             System.out.println(s + " -> " + Collections.frequency(al, s));
         }
 
+        /**
+         * ДЗ_2.
+         * "Телефонный справочник"
+         */
+        PhoneBook pb = new PhoneBook();
+        pb.add("Иванов", "+70001234567");
+        pb.add("Петров", "+70007654321");
+        pb.add("Сидоров", "+70007418529");
 
+        try {
+            System.out.println("\nНомера Иванова:");
+            for(String s : pb.get("Иванов")) {
+                System.out.println(s);
+            }
+
+            pb.add("Иванов", "+71110012323");
+
+            System.out.println("\nНомера Иванова:");
+            for(String s : pb.get("Иванов")) {
+                System.out.println(s);
+            }
+
+            System.out.println("\nНомера Никитина:");
+            for(String s : pb.get("Никитин")) {
+                System.out.println(s);
+            }
+        } catch (NullPointerException e) {
+            System.out.println("Отсутствуют");
+        }
     }
 }
