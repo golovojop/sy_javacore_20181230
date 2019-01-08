@@ -50,5 +50,4 @@ public class DopDzPassword {
         if(m.matches()) throw new PasswordSyntaxException();
         return true;
     }
-
 }
